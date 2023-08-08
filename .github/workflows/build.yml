@@ -43,8 +43,7 @@ jobs:
       run: |
         zig build \
           -Doptimize=ReleaseFast \
-          -Dv8-toolchain=$(brew --prefix llvm@15) \
-          - name: Archive code coverage results
+          -Dv8-toolchain=$(brew --prefix llvm@15)
     - uses: actions/upload-artifact@v3
       with:
           name: mac-libv8_monolith.a
