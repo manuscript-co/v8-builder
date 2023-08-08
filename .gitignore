@@ -1,0 +1,9 @@
+deps/.cipd/*
+deps/.gclient_previous_sync_commits
+.gclient_entries
+zig-cache/
+zig-out/
+staging/
+build/
+.ccls
+.ccls-cache

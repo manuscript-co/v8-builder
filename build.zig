@@ -17,7 +17,7 @@ pub fn build(b: *Builder) !void {
         .CC = CC, .CXX = CXX 
     };
 
-    const a = makeV8Stage(b, options);
+    const a = try makeV8Stage(b, options);
     b.getInstallStep().dependOn(a);
 }
 
