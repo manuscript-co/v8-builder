@@ -1,0 +1,45 @@
+name: build package
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - 'main'
+  pull_request:
+    branches:
+    - 'main'
+  
+jobs:
+  build_macos:
+    name: 'macos'
+    runs-on: macos-13
+    timeout-minutes: 120
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - uses: goto-bus-stop/setup-zig@v2
+      with:
+        version: 0.11.0
+    - uses: hendrikmuhs/ccache-action@v1.2
+    - name: build
+      run: |
+        export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
+    - name: install system dependencies
+      run: |
+        pip install Jinja2
+    - name: install gn
+      run: |
+        tar xf gn/gn-mac-amd64.zip -C tools/
+        export PATH=$PATH:$PWD/tools
+    - name: fetch v8 dependencies
+      run: cd deps && bash ../fetch.v8.deps.sh
+    - name: check
+      run: |
+        /usr/bin/clang -v
+        brew --prefix llvm@15
+    - name: build release
+      run: |
+        zig build \
+          -Doptimize=ReleaseFast \
+          -Dv8-toolchain=$(brew --prefix llvm@15) \
