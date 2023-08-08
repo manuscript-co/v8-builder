@@ -33,7 +33,7 @@ jobs:
         tar xf gn/gn-mac-amd64.zip -C tools/
         export PATH=$PATH:$PWD/tools
     - name: fetch v8 dependencies
-      run: cd deps && bash ../fetch.v8.deps.sh
+      run: cd deps && bash ../tools/fetch.v8.deps.sh
     - name: check
       run: |
         /usr/bin/clang -v
