@@ -4,6 +4,7 @@ deps/.gclient_previous_sync_commits
 zig-cache/
 zig-out/
 staging/
+
 build/
 .ccls
 .ccls-cache
